@@ -14,6 +14,18 @@ Planned platforms:
 - qcow2 virtual disk VM
 
 
+# Router
+
+## Base environment bootstrapping
+
+The i2p-os router is a Debian-based diskless virtual machine.
+The Debian environment is created using debootstrap.
+
+```sh
+./bootstrap-router i2p-router
+```
+
+
 # Environment setup
 
 I2p-os is currently based on Debian, and is built in a chroot with debootstrap.
@@ -26,7 +38,7 @@ This step will bootstrap a minimal Debian install from scratch with Debootstrap.
 # create the environment
 mnt=test-i2p
 mkdir $mnt
-debootstrap --includes=ca-certificates stable $mnt  # add ssl certificates before chrooting
+debootstrap --include=ca-certificates stable $mnt  # add ssl certificates before chrooting
 # TODO: replace by a versioned file import (the current system cannot be built without a pre-installed debian)
 sudo cp /etc/apt/sources.list $mnt/etc/apt/sources.list  # import
 ```
@@ -38,7 +50,7 @@ apt install bash-completion command-not-found vim
 #update-alternatives --config editor
 # choose 2 for vim
 # The name of the virtiofs rootfs is "fs"
-echo "root    /       virtiofs        defaults        0       0" >> $mnt/etc/fstab
+echo "fs    /       virtiofs        defaults        0       0" >> $mnt/etc/fstab
 
 # linux kernel and firmware
 apt install linux-image-amd64 firmware-linux
