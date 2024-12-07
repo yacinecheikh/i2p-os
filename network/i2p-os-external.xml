@@ -1,0 +1,18 @@
+<network>
+  <name>i2p-os-external</name>
+  <uuid>76273114-e977-4d52-8f8c-b1c9c24ba1fc</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr3' stp='on' delay='0'/>
+  <mac address='52:54:00:3d:fb:9b'/>
+  <domain name='i2p-os-external'/>
+  <ip address='192.168.100.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.100.128' end='192.168.100.254'/>
+    </dhcp>
+  </ip>
+</network>
+

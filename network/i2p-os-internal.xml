@@ -1,0 +1,8 @@
+<network>
+  <name>i2p-os-internal</name>
+  <uuid>1e9b3bf5-7b19-4426-bc99-a9a5c2a9645a</uuid>
+  <bridge name='virbr4' stp='on' delay='0'/>
+  <mac address='52:54:00:17:59:45'/>
+  <domain name='i2p-os-internal'/>
+</network>
+
