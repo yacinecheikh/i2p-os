@@ -80,3 +80,5 @@ END1
 
 # static IP address in the isolated network
 cp "resources/router/Wired connection 2.nmconnection" "$target/etc/NetworkManager/system-connections/"
+
+cp "resources/router/router-config" "$target/home/user/.i2p/clients.config.d/00-net.i2p.router.web.RouterConsoleRunner-clients.config"
