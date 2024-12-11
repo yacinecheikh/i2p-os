@@ -1,0 +1,12 @@
+[Unit]
+Description=i2prouter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/user/i2p/i2prouter console
+User=user
+Group=user
+
+[Install]
+WantedBy=multi-user.target

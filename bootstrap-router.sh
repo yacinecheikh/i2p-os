@@ -78,7 +78,19 @@ END2
 END1
 
 
+#TODO: test the following
+
+
 # static IP address in the isolated network
 cp "resources/router/Wired connection 2.nmconnection" "$target/etc/NetworkManager/system-connections/"
 
+# i2p router configuration: serve over the IP address in the isolated network
 cp "resources/router/router-config" "$target/home/user/.i2p/clients.config.d/00-net.i2p.router.web.RouterConsoleRunner-clients.config"
+
+# systemd service: i2prouter
+cp "resources/router/i2prouter.service" "$target/etc/systemd/system/"
+# enable the service
+LANG=C.UTF-8 arch-chroot $target /bin/bash <<END
+#systemctl daemon-reload
+systemctl enable i2prouter.service
+END
