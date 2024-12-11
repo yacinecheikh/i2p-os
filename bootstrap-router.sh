@@ -70,10 +70,16 @@ apt install -y wget default-jdk
 
 # java -jar i2pinstall_2.7.0.jar -console
 
+# install and initialize the I2P router
 sudo -u user bash <<END2
 cd
 wget https://files.i2p-projekt.de/2.7.0/i2pinstall_2.7.0.jar
 echo -e "\n1\n1\n\nO\n1\n1\n" | java -jar i2pinstall_2.7.0.jar -console
+
+# initialize the I2P router (before overriding its configurations in ~/.i2p)
+cd ~/i2p
+./i2prouter start
+./i2prouter stop
 END2
 END1
 
@@ -94,3 +100,9 @@ LANG=C.UTF-8 arch-chroot $target /bin/bash <<END
 #systemctl daemon-reload
 systemctl enable i2prouter.service
 END
+
+# override default tunnel configurations to allow access from the workstation
+# (diff: 127.0.0.1 -> 192.168.101.1)
+cp "resources/router/00-I2P HTTP Proxy-i2ptunnel.config" "$target/home/user/.i2p/i2ptunnel.config.d/"
+cp "resources/router/05-I2P HTTPS Proxy-i2ptunnel.config" "$target/home/user/.i2p/i2ptunnel.config.d/"
+
