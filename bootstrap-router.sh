@@ -76,3 +76,7 @@ wget https://files.i2p-projekt.de/2.7.0/i2pinstall_2.7.0.jar
 echo -e "\n1\n1\n\nO\n1\n1\n" | java -jar i2pinstall_2.7.0.jar -console
 END2
 END1
+
+
+# router static IP address in the isolated network
+cp "resources/router-bootstrap/Wired connection 2.nmconnection" "$target/etc/NetworkManager/system-connections/"
