@@ -78,9 +78,17 @@ echo -e "\n1\n1\n\nO\n1\n1\n" | java -jar i2pinstall_2.7.0.jar -console
 
 # initialize the I2P router (before overriding its configurations in ~/.i2p)
 cd ~/i2p
-./i2prouter start
-./i2prouter stop
+# the i2prouter cannot start as a daemon (with ./i2prouter start) inside an arch-chroot
+# instead, fork the router process with ./i2prouter console &, and wait for it to initialize the ~/.i2p folder
+
+#./i2prouter start
+#./i2prouter stop
+./i2prouter console &
+sleep 10
+# rm ~/.i2p/router.ping
 END2
+# wait for mountpoints not to be busy
+sleep 1
 END1
 
 
@@ -99,6 +107,8 @@ cp "resources/router/i2prouter.service" "$target/etc/systemd/system/"
 LANG=C.UTF-8 arch-chroot $target /bin/bash <<END
 #systemctl daemon-reload
 systemctl enable i2prouter.service
+# without this, exiting gives a "target is busy" error
+sync
 END
 
 # override default tunnel configurations to allow access from the workstation
